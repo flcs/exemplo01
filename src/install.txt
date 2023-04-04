@@ -1,0 +1,64 @@
+https://k6.io/docs/using-k6/modules/#installing-packages
+
+------------------
+import http from 'k6/http';
+--------------------
+
+
+npm i k6
+npm i @types/k6
+
+npm install --save-dev \
+    webpack \
+    webpack-cli \
+    k6 \
+    babel-loader \
+    @babel/core \
+    @babel/preset-env \
+    core-js
+
+
+> webpack.config.js
+
+const path = require('path');
+
+module.exports = {
+  mode: 'production',
+  entry: {
+    login: './src/login.test.js',
+    signup: './src/signup.test.js',
+  },
+  output: {
+    path: path.resolve(__dirname, 'dist'), // eslint-disable-line
+    libraryTarget: 'commonjs',
+    filename: '[name].bundle.js',
+  },
+  module: {
+    rules: [{ test: /\.js$/, use: 'babel-loader' }],
+  },
+  target: 'web',
+  externals: /k6(\/.*)?/,
+};
+
+----------------------
+
+// login.test.js
+
+import { SomeService } from './some.service.js';
+
+const svc = new SomeService();
+
+-----------------------
+
+// some.service.js
+
+import * as lodash from 'lodash';
+
+export class SomeService {
+  constructor() {
+    this._ = lodash;
+  }
+}
+
+---------------------
+
