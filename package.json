@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@types/k6": "^0.43.2",
+    "@types/k6": "^0.44.2",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
